@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "Tic Tac Toe",
       theme: ThemeData.dark(),
+      debugShowCheckedModeBanner: false,
       home: const MyHomePage(),
     );
   }
@@ -24,8 +25,40 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final _pressed = <Set<int>>[{}, {}, {}];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar());
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+          3,
+          (y) => Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: List.generate(
+              3,
+              (x) => InkWell(
+                onTap: _pressed[y].contains(x)
+                    ? null
+                    : () => setState(() => _pressed[y].add(x)),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 100,
+                  width: 100,
+                  decoration: BoxDecoration(
+                    color: _pressed[y].contains(x)
+                        ? Colors.white
+                        : const Color(0xAA121212),
+                    border: Border.all(color: Colors.red),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
