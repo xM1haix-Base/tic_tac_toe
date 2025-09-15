@@ -29,8 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _pressed = <Set<int>>[{}, {}, {}];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,17 +42,13 @@ class _MyHomePageState extends State<MyHomePage> {
             children: List.generate(
               3,
               (x) => InkWell(
-                onTap: _pressed[y].contains(x)
-                    ? null
-                    : () => setState(() => _pressed[y].add(x)),
+                onTap: () {},
                 child: Container(
                   alignment: Alignment.center,
                   height: 100,
                   width: 100,
                   decoration: BoxDecoration(
-                    color: _pressed[y].contains(x)
-                        ? Colors.white
-                        : const Color(0xAA121212),
+                    color: const Color(0xAA121212),
                     border: Border.all(color: Colors.red),
                   ),
                 ),
